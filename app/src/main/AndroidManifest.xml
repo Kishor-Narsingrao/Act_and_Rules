@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.samvid.myapplication">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:name="com.example.samvid.myapplication.AlGlobalList"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_law_book"
+        android:label="@string/app_name"
+        android:logo="@drawable/ic_law_book"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+
+        <activity
+            android:name=".ActSectionFragment"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".ActSubSectionFragment"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".ActSectionDetailFragment_four"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Splash"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".Acts_three"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Home_one"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Panchayat_Rules" />
+
+        <activity android:name=".APCS_Home" />
+
+        <activity android:name=".Act_Fragment_Container_two"
+            android:icon="@drawable/ic_launcher_round"></activity>
+
+        <activity android:name=".APCS_Acts_Rules.Rules.Rule_Fragment_Container"></activity>
+
+    </application>
+
+</manifest>

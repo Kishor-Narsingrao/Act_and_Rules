@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/chapter_heading_padding"
+    android:background="@android:color/darker_gray">
+
+    <ScrollView
+        android:id="@+id/textareascroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:layout_marginTop="@dimen/top_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/background_dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvChapter"
+                android:padding="@dimen/chapter_heading_padding"
+                android:textAlignment="center"
+                android:visibility="gone"
+                android:background="@android:color/white"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="gone"
+                android:background="@android:color/black"/>
+            <TextView
+                android:textColor="@android:color/background_dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/chapter_heading_padding"
+                android:visibility="visible"
+                android:id="@+id/tvSectionNo"
+                android:textSize="15sp"
+                android:background="@drawable/edittext_bg"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="visible"
+                android:background="@android:color/black"/>
+            <TextView
+                android:gravity="start"
+                android:textColor="@android:color/background_dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSectionHeader"
+                android:textSize="15sp"
+                android:padding="@dimen/chapter_heading_padding"
+                android:background="@drawable/edittext_bg"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black"/>
+            <TextView
+                android:text="Data"
+                android:id="@+id/tvSectionContent"
+                android:layout_gravity="top"
+                android:gravity="fill_horizontal"
+                android:textColor="@android:color/background_dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="15sp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/edittext_bg"
+                android:lineSpacingExtra="8dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Telangana Govt. Acts and Rules</string>
+    <dimen name="header_text_size">18sp</dimen>
+    <dimen name="chapter_heading_padding">5dp</dimen>
+    <dimen name="top_margin">5dp</dimen>
+    <dimen name="bottom_margin">5dp</dimen>
+    <string name="section">Section</string>
+    <string name="apcs_acts_rules">APCS Acts and Rules</string>
+    <string name="panchyat_acts_rules">Panchayat Acts and Rules</string>
+</resources>
