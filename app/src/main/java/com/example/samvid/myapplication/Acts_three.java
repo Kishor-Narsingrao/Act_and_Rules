@@ -45,7 +45,7 @@ public class Acts_three extends Fragment implements ResultCallBack {
     EditText etSearch;
     int iBookId;
 
-    String strURL = "http://Localhost:84/api/TreasuryBooks?bookInfoId=null&bookIndexId=";
+    String strURL = "http://172.168.20.31:84/api/TreasuryBooks?bookInfoId=null&bookIndexId=";
 
     AlGlobalList globalList;
 

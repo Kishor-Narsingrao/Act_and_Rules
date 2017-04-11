@@ -21,7 +21,7 @@ public class ActSectionDetailFragment_four extends Fragment implements ResultCal
 
     SQLiteDatabase db;
 
-    String strURL="http://localhost:84/api/TreasuryBooks?bookIndexId=1&bookId=1";
+    String strURL="http://172.168.20.31:84/api/TreasuryBooks?bookIndexId=1&bookId=1";
 
     AlGlobalList globalList;
 

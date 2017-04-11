@@ -41,7 +41,7 @@ public class Act_Fragment_Container_two extends AppCompatActivity implements Res
     com.example.samvid.myapplication.DatabaseAccess da;
     Types bookadapter;
 
-    String strURL="http://Localhost:84/api/TreasuryBooks?bookIndexId=null&bookId=";
+    String strURL="http://172.168.20.31:84/api/TreasuryBooks?bookIndexId=null&bookId=";
 
     AlGlobalList globalList;
 

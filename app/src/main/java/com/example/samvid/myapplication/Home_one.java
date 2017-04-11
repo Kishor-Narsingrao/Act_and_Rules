@@ -38,7 +38,7 @@ public class Home_one extends AppCompatActivity implements ResultCallBack {
     Category bookadapter;
     ArrayList<String> alBookInfo;
     com.example.samvid.myapplication.DatabaseAccess da;
-    String strURL = "http://Localhost:84/api/TreasuryBooks?BookId=Null";
+    String strURL = "http://172.168.20.31:84/api/TreasuryBooks?BookId=Null";
     AlGlobalList globalList;
     ArrayList<BooksModel> alBooks;
 
