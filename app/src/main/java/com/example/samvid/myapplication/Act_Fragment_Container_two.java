@@ -69,17 +69,7 @@ public class Act_Fragment_Container_two extends AppCompatActivity implements Res
         if(rows>0) {
             c.moveToFirst();
             iBoookid = c.getInt(c.getColumnIndex("BookId"));
-        }/*else
-        {
-            for(int i=0;i<globalList.getBooksSize();i++)
-            {
-                if(globalList.getBooks(i).strBookName.equals(strBookName))
-                {
-                    iBoookid=globalList.getBooks(i).getStrBookId();
-                    break;
-                }
-            }
-        }*/
+        }
 
         strURL=strURL+iBoookid;
 
@@ -89,10 +79,12 @@ public class Act_Fragment_Container_two extends AppCompatActivity implements Res
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        AsyncTask_WebAPI asyncTask=new AsyncTask_WebAPI(this,strURL,this);
-        asyncTask.execute();
+//        AsyncTask_WebAPI asyncTask=new AsyncTask_WebAPI(this,strURL,this);
+//        asyncTask.execute();
 
         rvType=(RecyclerView)findViewById(R.id.rvtypes);
+
+        setData();
     }
 
     public void setData()
@@ -113,12 +105,6 @@ public class Act_Fragment_Container_two extends AppCompatActivity implements Res
 
         c.close();
         db.close();
-
-        /*for (int i = 0; i < globalList.getBookIndexSize(); i++) {
-            String strBoookName = globalList.getBookIndex(i).getStrBookIndexName();
-            tabTitles.add(strBoookName);
-//            c.moveToNext();
-        }*/
 
         bookadapter=new Types(this,tabTitles,strBookName);
         rvType.setLayoutManager(new LinearLayoutManager(this));
@@ -211,7 +197,6 @@ public class Act_Fragment_Container_two extends AppCompatActivity implements Res
         Context context;
         viewHolder holder;
 
-
         public  Types()
         {}
 
@@ -300,7 +285,6 @@ public class Act_Fragment_Container_two extends AppCompatActivity implements Res
             tvBookName = (TextView) itemview.findViewById(R.id.categoryName);
             ivBook=(ImageView)itemview.findViewById(R.id.bookImage);
 
-
             itemview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -308,21 +292,6 @@ public class Act_Fragment_Container_two extends AppCompatActivity implements Res
                     Intent intent = new Intent(Act_Fragment_Container_two.this, Acts_three.class);
                     intent.putExtra("BookName", tvBookName.getText());
                     startActivity(intent);
-                    /*Fragment fragment = null;
-
-                    fragment = new Acts_three(tvBookName.getText().toString());
-
-                    if (fragment != null)
-                    {
-                        FragmentManager fragmentManager=getSupportFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack(null).commit();
-                        rvType.setVisibility(View.GONE);
-                    }
-                    else
-                    {
-                        // error in creating fragment
-                        Log.e("ActSectionFragment", "Error in creating fragment");
-                    }*/
                 }
             });
         }

@@ -50,13 +50,6 @@ public class Acts_three extends AppCompatActivity implements ResultCallBack {
 
     AlGlobalList globalList;
 
-    public Acts_three() {
-    }
-
-//    public Acts_three(String bookName) {
-//        this.strBookName = bookName;
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,78 +81,17 @@ public class Acts_three extends AppCompatActivity implements ResultCallBack {
             iBookId = c.getInt(c.getColumnIndex("BookId"));
             c.close();
         }
-       /* else
-        {
-            for(int i=0;i<globalList.getBookIndexSize();i++)
-            {
-                if(globalList.getBookIndex(i).strBookIndexName.equals(strBookName))
-                {
-                    iBookId=globalList.getBookIndex(i).getiBookId();
-                    break;
-                }
-            }
-        }*/
 
         strURL = strURL + iBookId + "&paarentInfoId=null&typeId=null";
 
-        AsyncTask_WebAPI asyncTask = new AsyncTask_WebAPI(this, strURL, this);
-        asyncTask.execute();
+//        AsyncTask_WebAPI asyncTask = new AsyncTask_WebAPI(this, strURL, this);
+//        asyncTask.execute();
 
         rvBookDetails = (RecyclerView) findViewById(R.id.rvtypes);
-//        etSearch = (EditText) findViewById(R.id.etSearch);
 
-//setData();
+        setData();
     }
-     /*   @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
 
-    }*/
-
-/*
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.activity_acts, container, false);
-
-        da = com.example.samvid.myapplication.DatabaseAccess.getInstance(getActivity());
-        db = da.open();
-
-        globalList=(AlGlobalList)getActivity().getApplicationContext();
-
-        Cursor c = db.rawQuery("select bookid from bookIndex where bookindexname='" + strBookName + "'", null);
-        int rowscount = c.getCount();
-
-        if(rowscount>0) {
-            c.moveToFirst();
-            iBookId = c.getInt(c.getColumnIndex("BookId"));
-            c.close();
-        }
-       */
-/* else
-        {
-            for(int i=0;i<globalList.getBookIndexSize();i++)
-            {
-                if(globalList.getBookIndex(i).strBookIndexName.equals(strBookName))
-                {
-                    iBookId=globalList.getBookIndex(i).getiBookId();
-                    break;
-                }
-            }
-        }*//*
-
-
-        strURL = strURL + iBookId + "&paarentInfoId=null&typeId=null";
-
-        AsyncTask_WebAPI asyncTask = new AsyncTask_WebAPI(getActivity(), strURL, this);
-        asyncTask.execute();
-
-        rvBookDetails = (RecyclerView) rootView.findViewById(R.id.rvBookDetails);
-        etSearch = (EditText) rootView.findViewById(R.id.etSearch);
-
-        return rootView;
-    }
-*/
 
     public void setData()
     {
@@ -180,38 +112,10 @@ public class Acts_three extends AppCompatActivity implements ResultCallBack {
         c.close();
         db.close();
 
-        /*for (int i = 0; i < globalList.getBookInformationSize(); i++) {
-
-            if(globalList.getBookInformation(i).getiBookIndexId()== iBookId && globalList.getBookInformation(i).getiTypeId()==1) {
-                String strBoookName = globalList.getBookInformation(i).getStrBookInfoName();
-                alBookDetails.add(strBoookName);
-//                break;
-//            c.moveToNext();
-            }
-        }*/
-
-
         bookadapter = new BookDetailsAdapter(this, alBookDetails);
         rvBookDetails.setLayoutManager(new LinearLayoutManager(this));
         rvBookDetails.setAdapter(bookadapter);
 
-        /*etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                bookadapter.getFilter().filter(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-*/
     }
 
     @Override
@@ -232,8 +136,6 @@ public class Acts_three extends AppCompatActivity implements ResultCallBack {
                 String strBookInfoName = jsonObjectChild.getString("BookInfoName");
                 int iParentBookInfoId = jsonObjectChild.getInt("ParentBookInfoId");
                 int iTypeId=jsonObjectChild.getInt("TypeId");
-
-//                globalList.setBookInformation(new BookInformationModel(iBookInfoId,iBookIndexId,strBookInfoName,iParentBookInfoId,iTypeId));
 
                 Cursor c = db.rawQuery("insert into BookInformation values('" + iBookInfoId + "','" + iBookIndexId + "','" + strBookInfoName + "','" + iParentBookInfoId + "','" + iTypeId + "',1)", null);
                 c.getCount();
@@ -396,9 +298,6 @@ public class Acts_three extends AppCompatActivity implements ResultCallBack {
                         // error in creating fragment
                         Log.e("ActSectionFragment", "Error in creating fragment");
                     }
-                    //Intent intent=new Intent(getActivity(), Act_Fragment_Container_two.class);
-                    //intent.putExtra("BookName", tvBookName.getText());
-                    //startActivity(intent);
                 }
             });
         }
