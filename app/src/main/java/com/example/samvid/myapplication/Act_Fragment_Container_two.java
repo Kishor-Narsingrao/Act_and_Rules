@@ -1,6 +1,7 @@
 package com.example.samvid.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
@@ -303,7 +304,11 @@ public class Act_Fragment_Container_two extends AppCompatActivity implements Res
             itemview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Fragment fragment = null;
+
+                    Intent intent = new Intent(Act_Fragment_Container_two.this, Acts_three.class);
+                    intent.putExtra("BookName", tvBookName.getText());
+                    startActivity(intent);
+                    /*Fragment fragment = null;
 
                     fragment = new Acts_three(tvBookName.getText().toString());
 
@@ -317,7 +322,7 @@ public class Act_Fragment_Container_two extends AppCompatActivity implements Res
                     {
                         // error in creating fragment
                         Log.e("ActSectionFragment", "Error in creating fragment");
-                    }
+                    }*/
                 }
             });
         }

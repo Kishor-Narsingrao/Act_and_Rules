@@ -27,7 +27,7 @@ public class Pager_APCS extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                fragment = new Acts_three(strBookName);
+//                fragment = new Acts_three(strBookName);
                 return fragment;
             case 1:
                 fragment = new Rule();

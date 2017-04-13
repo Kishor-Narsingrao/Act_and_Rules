@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +32,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Acts_three extends Fragment implements ResultCallBack {
+public class Acts_three extends AppCompatActivity implements ResultCallBack {
 
     RecyclerView rvBookDetails;
     View rootView;
@@ -52,25 +53,32 @@ public class Acts_three extends Fragment implements ResultCallBack {
     public Acts_three() {
     }
 
-    public Acts_three(String bookName) {
-        this.strBookName = bookName;
-    }
+//    public Acts_three(String bookName) {
+//        this.strBookName = bookName;
+//    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        setContentView(R.layout.activity_fragment__container);
 
-    }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+//        toolbar.setBackgroundColor(getResources().getColor(R.color.acts));
+        setSupportActionBar(toolbar);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.activity_acts, container, false);
-
-        da = com.example.samvid.myapplication.DatabaseAccess.getInstance(getActivity());
+        da = com.example.samvid.myapplication.DatabaseAccess.getInstance(this);
         db = da.open();
+        globalList = (AlGlobalList) getApplicationContext();
 
-        globalList=(AlGlobalList)getActivity().getApplicationContext();
+        Bundle bundle = getIntent().getExtras();
+        strBookName = bundle.getString("BookName");
+
+        getSupportActionBar().setTitle(strBookName);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         Cursor c = db.rawQuery("select bookid from bookIndex where bookindexname='" + strBookName + "'", null);
         int rowscount = c.getCount();
@@ -94,6 +102,55 @@ public class Acts_three extends Fragment implements ResultCallBack {
 
         strURL = strURL + iBookId + "&paarentInfoId=null&typeId=null";
 
+        AsyncTask_WebAPI asyncTask = new AsyncTask_WebAPI(this, strURL, this);
+        asyncTask.execute();
+
+        rvBookDetails = (RecyclerView) findViewById(R.id.rvtypes);
+//        etSearch = (EditText) findViewById(R.id.etSearch);
+
+//setData();
+    }
+     /*   @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+    }*/
+
+/*
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.activity_acts, container, false);
+
+        da = com.example.samvid.myapplication.DatabaseAccess.getInstance(getActivity());
+        db = da.open();
+
+        globalList=(AlGlobalList)getActivity().getApplicationContext();
+
+        Cursor c = db.rawQuery("select bookid from bookIndex where bookindexname='" + strBookName + "'", null);
+        int rowscount = c.getCount();
+
+        if(rowscount>0) {
+            c.moveToFirst();
+            iBookId = c.getInt(c.getColumnIndex("BookId"));
+            c.close();
+        }
+       */
+/* else
+        {
+            for(int i=0;i<globalList.getBookIndexSize();i++)
+            {
+                if(globalList.getBookIndex(i).strBookIndexName.equals(strBookName))
+                {
+                    iBookId=globalList.getBookIndex(i).getiBookId();
+                    break;
+                }
+            }
+        }*//*
+
+
+        strURL = strURL + iBookId + "&paarentInfoId=null&typeId=null";
+
         AsyncTask_WebAPI asyncTask = new AsyncTask_WebAPI(getActivity(), strURL, this);
         asyncTask.execute();
 
@@ -102,6 +159,7 @@ public class Acts_three extends Fragment implements ResultCallBack {
 
         return rootView;
     }
+*/
 
     public void setData()
     {
@@ -133,11 +191,11 @@ public class Acts_three extends Fragment implements ResultCallBack {
         }*/
 
 
-        bookadapter = new BookDetailsAdapter(getActivity(), alBookDetails);
-        rvBookDetails.setLayoutManager(new LinearLayoutManager(getActivity()));
+        bookadapter = new BookDetailsAdapter(this, alBookDetails);
+        rvBookDetails.setLayoutManager(new LinearLayoutManager(this));
         rvBookDetails.setAdapter(bookadapter);
 
-        etSearch.addTextChangedListener(new TextWatcher() {
+        /*etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -153,7 +211,7 @@ public class Acts_three extends Fragment implements ResultCallBack {
 
             }
         });
-
+*/
     }
 
     @Override
@@ -186,11 +244,11 @@ public class Acts_three extends Fragment implements ResultCallBack {
             e.printStackTrace();
         }
     }
-
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.search, menu);
-        MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate( R.menu.search, menu);
+
+        MenuItem myActionMenuItem = menu.findItem( R.id.action_search);
 
         SearchView searchView = (SearchView) myActionMenuItem.getActionView();
 
@@ -206,7 +264,32 @@ public class Acts_three extends Fragment implements ResultCallBack {
                 return false;
             }
         });
-        super.onCreateOptionsMenu(menu, inflater);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home)
+        {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportFragmentManager().popBackStack();
+            } else {
+                super.onBackPressed();
+            }
+        }
+        rvBookDetails.setVisibility(View.VISIBLE);
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+            super.onBackPressed();
+        } else {
+            super.onBackPressed();
+        }
+        rvBookDetails.setVisibility(View.VISIBLE);
     }
 
     private class BookDetailsAdapter extends RecyclerView.Adapter<viewHolder> implements Filterable {
@@ -305,9 +388,10 @@ public class Acts_three extends Fragment implements ResultCallBack {
 
                     if (fragment != null) {
                         //FragmentManager fragmentManager=getSupportFragmentManager();
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+                        rvBookDetails.setVisibility(View.GONE);
                     } else {
                         // error in creating fragment
                         Log.e("ActSectionFragment", "Error in creating fragment");
