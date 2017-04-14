@@ -3,6 +3,7 @@ package com.example.samvid.myapplication;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
@@ -26,10 +27,10 @@ public class Splash extends AppCompatActivity implements ResultCallBack{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        dialog=new ProgressDialog(this);
+        /*dialog=new ProgressDialog(this);
         dialog.setMessage("Telangana Acts and Rules");
         dialog.show();
-        dialog.setCancelable(false);
+        dialog.setCancelable(false);*/
 
         da = com.example.samvid.myapplication.DatabaseAccess.getInstance(this);
 
@@ -38,7 +39,7 @@ public class Splash extends AppCompatActivity implements ResultCallBack{
         int count=cursor.getCount();
 
         if(count <= 0) {
-            if(isNetworkAvailable()) {
+            if (isNetworkAvailable()) {
                 String BookInformationURL = "http://172.168.20.31:84/api/TreasuryBooks?bookInfoId=null&bookIndexId=null&paarentInfoId=null&typeId=null";
                 String BookIndexURL = "http://172.168.20.31:84/api/TreasuryBooks?bookIndexId=null&bookId=null";
                 String BooksURL = "http://172.168.20.31:84/api/TreasuryBooks?BookId=Null";
@@ -51,13 +52,13 @@ public class Splash extends AppCompatActivity implements ResultCallBack{
 
                 AsyncTask_WebAPI BookInformationasyncTask = new AsyncTask_WebAPI(Splash.this, BookInformationURL, Splash.this);
                 BookInformationasyncTask.execute();
-            }else
-            {
-                Toast.makeText(Splash.this,"Please Check for Internet Connectivity",Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(Splash.this, "Please Check for Internet Connectivity", Toast.LENGTH_LONG).show();
             }
         }
         Intent intent;
-       /* new Thread(new Runnable() {
+
+        /* new Thread(new Runnable() {
 
 
             @Override
@@ -67,11 +68,11 @@ public class Splash extends AppCompatActivity implements ResultCallBack{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {*/
-                    dialog.dismiss();
+//                    dialog.dismiss();
 
-                    intent=new Intent(Splash.this,Home_one.class);
-                    startActivity(intent);
-                    Splash.this.finish();
+        intent=new Intent(Splash.this,Home_one.class);
+        startActivity(intent);
+        Splash.this.finish();
                 /*}
             }
         }).start();*/
@@ -100,24 +101,24 @@ public class Splash extends AppCompatActivity implements ResultCallBack{
 
                 Log.v("Books","Executed");
 
-                 JSONArray jsonArray = jsonObjects.getJSONArray("Books");
-            if (jsonArray.length() != 0) {
-                db = da.open();
-                Cursor cursor = db.rawQuery("delete from Books", null);
-                cursor.getCount();
-                cursor.close();
+                JSONArray jsonArray = jsonObjects.getJSONArray("Books");
+                if (jsonArray.length() != 0) {
+                    db = da.open();
+                    Cursor cursor = db.rawQuery("delete from Books", null);
+                    cursor.getCount();
+                    cursor.close();
 
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObjectChild = jsonArray.getJSONObject(i);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObjectChild = jsonArray.getJSONObject(i);
 //                int strId = jsonObjectChild.getInt("$id");
-                    int strBookId = jsonObjectChild.getInt("BookId");
-                    String strBookName = jsonObjectChild.getString("BookName");
+                        int strBookId = jsonObjectChild.getInt("BookId");
+                        String strBookName = jsonObjectChild.getString("BookName");
 
-                    Cursor c = db.rawQuery("insert into Books values('" + strBookId + "','" + strBookName + "',1)", null);
-                    c.getCount();
+                        Cursor c = db.rawQuery("insert into Books values('" + strBookId + "','" + strBookName + "',1)", null);
+                        c.getCount();
+                    }
+                    db.close();
                 }
-                db.close();
-            }
             }
             else if(jsonObjects.has("BookIndex"))
             {
@@ -125,24 +126,24 @@ public class Splash extends AppCompatActivity implements ResultCallBack{
 
                 JSONArray jsonArray = jsonObjects.getJSONArray("BookIndex");
 //                    JSONArray jsonArray = new JSONArray(object);
-                    db=da.open();
+                db=da.open();
 
-                    Cursor cursor=db.rawQuery("delete from BookIndex",null);
-                    cursor.getCount();
-                    cursor.close();
-                    for(int i=0;i<jsonArray.length();i++){
+                Cursor cursor=db.rawQuery("delete from BookIndex",null);
+                cursor.getCount();
+                cursor.close();
+                for(int i=0;i<jsonArray.length();i++){
 
-                        JSONObject jsonObjectChild=jsonArray.getJSONObject(i);
+                    JSONObject jsonObjectChild=jsonArray.getJSONObject(i);
 
-                        int iBookId=jsonObjectChild.getInt("BookId");
-                        int iBookIndexId=jsonObjectChild.getInt("BookIndexId");
-                        String strBookName=jsonObjectChild.getString("BookIndexName");
+                    int iBookId=jsonObjectChild.getInt("BookId");
+                    int iBookIndexId=jsonObjectChild.getInt("BookIndexId");
+                    String strBookName=jsonObjectChild.getString("BookIndexName");
 
 //                globalList.setBookIndex(new BookIndexModel(iBookId,iBookIndexId,strBookName));
-                        Cursor c=db.rawQuery("insert into BookIndex values('"+iBookId+"','"+iBookIndexId+"','"+strBookName+"',1)",null);
-                        c.getCount();
-                    }
-                    db.close();
+                    Cursor c=db.rawQuery("insert into BookIndex values('"+iBookIndexId+"','"+iBookId+"','"+strBookName+"',1)",null);
+                    c.getCount();
+                }
+                db.close();
 
             }
             else

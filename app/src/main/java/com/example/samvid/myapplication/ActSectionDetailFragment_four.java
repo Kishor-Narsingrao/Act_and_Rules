@@ -31,12 +31,14 @@ public class ActSectionDetailFragment_four extends Fragment implements ResultCal
     int iBookInfoId;
 
     public ActSectionDetailFragment_four()
-    { }
-
-    public ActSectionDetailFragment_four(String sectionNo)
     {
-        strSectionNo=sectionNo;
+
     }
+
+//    public ActSectionDetailFragment_four(String sectionNo)
+//    {
+//        strSectionNo=sectionNo;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ public class ActSectionDetailFragment_four extends Fragment implements ResultCal
         tvSectionHeader.setVisibility(View.GONE);
         tvSectionContent.setVisibility(View.GONE);
 
+        strSectionNo=getArguments().getString("section");
 
         Cursor c = db.rawQuery("select bookinfoid,bookindexid from bookinformation where bookinfoname='"+strSectionNo+"'", null);
         int rows = c.getCount();

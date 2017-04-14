@@ -44,7 +44,7 @@ public class AsyncTask_WebAPI extends AsyncTask<String,Void,String>
         dialog=new ProgressDialog(context);
         dialog.setMessage("Please Wait...");
         dialog.show();
-        dialog.setCancelable(false);
+//        dialog.setCancelable(false);
         super.onPreExecute();
     }
 
@@ -107,8 +107,10 @@ public class AsyncTask_WebAPI extends AsyncTask<String,Void,String>
 
     @Override
     protected void onPostExecute(String jsonObject) {
-        dialog.dismiss();
         super.onPostExecute(jsonObject);
+        if(dialog.isShowing())
+        {
+        dialog.dismiss();}
         resultCallBack.onResultListener(jsonObject);
     }
 }

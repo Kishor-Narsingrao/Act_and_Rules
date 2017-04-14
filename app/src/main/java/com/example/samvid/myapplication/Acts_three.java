@@ -73,12 +73,12 @@ public class Acts_three extends AppCompatActivity implements ResultCallBack {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        Cursor c = db.rawQuery("select bookid from bookIndex where bookindexname='" + strBookName + "'", null);
+        Cursor c = db.rawQuery("select BookIndexId from bookIndex where bookindexname='" + strBookName + "'", null);
         int rowscount = c.getCount();
 
         if(rowscount>0) {
             c.moveToFirst();
-            iBookId = c.getInt(c.getColumnIndex("BookId"));
+            iBookId = c.getInt(c.getColumnIndex("BookIndexId"));
             c.close();
         }
 
@@ -285,8 +285,11 @@ public class Acts_three extends AppCompatActivity implements ResultCallBack {
                 @Override
                 public void onClick(View v) {
                     Fragment fragment = null;
+                    Bundle bundle =new Bundle();
+                    bundle.putString("section",tvBookName.getText().toString());
 
-                    fragment = new ActSectionDetailFragment_four(tvBookName.getText().toString());
+                    fragment = new ActSectionDetailFragment_four(/*tvBookName.getText().toString()*/);
+                    fragment.setArguments(bundle);
 
                     if (fragment != null) {
                         //FragmentManager fragmentManager=getSupportFragmentManager();

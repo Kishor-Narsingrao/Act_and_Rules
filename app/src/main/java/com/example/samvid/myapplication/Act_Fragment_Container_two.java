@@ -92,7 +92,7 @@ public class Act_Fragment_Container_two extends AppCompatActivity implements Res
         db = da.open();
         tabTitles = new ArrayList<String>();
 
-        Cursor c = db.rawQuery("select BookIndexName from BookIndex ", null);
+        Cursor c = db.rawQuery("select BookIndexName from BookIndex where BookId='"+iBoookid+"'", null);
         int rows = c.getCount();
 
         c.moveToFirst();
