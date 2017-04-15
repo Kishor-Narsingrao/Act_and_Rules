@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.samvid.myapplication.Act_Fragment_Container_two">
+    tools:context="com.ronivi.samvid.myapplication.Book_Index_offline">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"

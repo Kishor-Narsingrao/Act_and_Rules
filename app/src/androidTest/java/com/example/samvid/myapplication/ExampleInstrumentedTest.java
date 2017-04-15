@@ -1,6 +1,4 @@
-package com.example.samvid.myapplication;
-
-import android.content.Context;
+package com.ronivi.samvid.myapplication;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

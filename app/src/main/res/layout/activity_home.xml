@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.samvid.myapplication.Home_one">
+    tools:context="com.ronivi.samvid.myapplication.Books_Offline">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar"
@@ -23,14 +23,21 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!--<EditText
-        android:id="@+id/etSearch"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search"
-        android:imeOptions="actionDone"
-        android:maxLines="1"
-        android:singleLine="true"/>-->
+        android:gravity="end">
+        <Button
+            android:id="@+id/btOnlineBooks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/orange"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:text="text"/>
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvCategory"

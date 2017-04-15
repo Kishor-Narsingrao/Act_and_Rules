@@ -1,7 +1,8 @@
-package com.example.samvid.myapplication;
+package com.ronivi.samvid.myapplication;
 
 import org.junit.Test;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
 /**
