@@ -54,7 +54,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:clickable="true"
-            android:padding="3dp"
             android:background="@color/light_white">
             <ImageView
                 android:id="@+id/download"
